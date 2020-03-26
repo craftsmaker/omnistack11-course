@@ -1,6 +1,6 @@
 import React from 'react'
 import './global.css'
-import Logon from './pages/Logon'
+import Routes from './routes'
 
 function Theme(name){
   name = name.toLowerCase()
@@ -15,7 +15,7 @@ function App() {
   
   return (
     <div>
-      <Logon/>
+      <Routes/>
       {Theme('default')}
     </div>
   )
