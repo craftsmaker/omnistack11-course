@@ -15,7 +15,7 @@ export default class Logon extends React.Component {
 					<form>
 						<h1>Experimental</h1>
 						<input placeholder="Sua ID"/>
-						<button type="submit">Entrar</button>
+						<button className="button" type="submit">Entrar</button>
 
 						<a href="/register">
 							<FiLogIn size={16} color="#E02041"/>
