@@ -8,27 +8,34 @@ import api from '../../services/api.js'
 import logoImg from '../../../assets/logo.png'
 import styles from './styles.js'
 export default function Incidents(){
-  const [incidents, setIncidents] = useState([])
-  const [total,setTotal] = useState()
-  const navigation = useNavigation(0)
+  const [incidents, setIncidents] = useState([]);
+  const [total,setTotal] = useState();
+  const [verify,setVerify] = useState(true);
+  const navigation = useNavigation(0);
   
   function navigateToDetail(incident){
     navigation.navigate('Detail', {incident})
   }
- 
-  // useEffect(() => {
-  //    async function loadIncidents(){
-  //       try{
-  //         const response = await api.get('incidents')
 
-  //         setIncidents(response.data)
-  //         setTotal(response.headers['x-total-count'])
-  //       } catch(err){
-  //         return;
-  //       }
-  //     }
-  //   loadIncidents()
-  // });
+  async function loadIncidents(){
+
+        try{
+          const response = await api.get('/incidents')
+          //console.log("after response:",response.data)
+          setIncidents([...incidents,...response.data])
+          
+          setTotal(response.headers['x-total-count'])
+          setVerify(false);
+        } catch(err){
+          console.log(err);
+        }
+      }
+ 
+  useEffect(() => {
+     if (verify){      
+      loadIncidents()
+     }
+  },[]);
 
   return(
     <View style={styles.container}>
@@ -41,7 +48,29 @@ export default function Incidents(){
 
       <Text style={styles.title}>Bem-vindo</Text>
       <Text style={styles.description}>Escolha um dos casos abaixos e salve</Text>
-      
+
+      <FlatList
+        style={styles.incidentList}
+        data={incidents}
+        keyExtractor={incident => String(incident.id)}
+        showsVerticalScrollIndicator={false}
+        renderItem={({item: incident}) => (
+          <View style={styles.incident}>
+            <Text style={styles.incidentProperty}>ONG </Text>
+            <Text style={styles.incidentProperty}>{incident.name}</Text>
+
+            <Text style={styles.incidentProperty}>CASO:</Text>
+            <Text style={styles.incidentProperty}>{incident.title}</Text>
+
+            <Text style={styles.incidentProperty}>VALOR:</Text>
+
+            <TouchableOpacity style={styles.detailsButton} onPress={()=> navigateToDetail(incident)}>
+              <Text style={styles.detailsButtonText}>Ver mais detalhes</Text>
+              <Feather name="arrow-right" size={16} color="#E02041"/>
+            </TouchableOpacity>
+          </View>
+        )}
+      />
     </View>
   );
 }
