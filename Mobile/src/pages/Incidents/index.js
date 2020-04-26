@@ -18,10 +18,9 @@ export default function Incidents(){
   }
 
   async function loadIncidents(){
-
         try{
           const response = await api.get('/incidents')
-          //console.log("after response:",response.data)
+
           setIncidents([...incidents,...response.data])
           
           setTotal(response.headers['x-total-count'])

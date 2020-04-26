@@ -1,7 +1,7 @@
 import React from 'react'
 import {Feather} from '@expo/vector-icons'
 import {View,Text,Image,TouchableOpacity,Linking} from 'react-native'
-import {useNavigation} from '@react-navigation/native'
+import {useNavigation,useRoute} from '@react-navigation/native'
 import * as MailComposer from 'expo-mail-composer'
 
 import logoImg from '../../../assets/logo.png'
@@ -11,6 +11,7 @@ export default function Detail(){
   const navigation = useNavigation()
   const msg = 'Olá APD, estou entrando em contato...'
   let number = ''
+  const incident = useRoute().params;
 
   function navigateBack(){
     navigation.goBack()
