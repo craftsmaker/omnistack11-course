@@ -2,6 +2,7 @@ const connection = require('../database/connection')
 
 module.exports = {
 	async index(request,response){
+		console.log("Ola")
 		const { page = 1 } = request.query
 
 		const [count] = await connection('incidents').count()
@@ -11,6 +12,7 @@ module.exports = {
 			.limit(5)
 			.offset((page - 1) * 5)
 			.select(['incidents.*', 'ongs.name', 'ongs.whatsapp', 'ongs.city', 'ongs.uf'])
+
 
 		response.header('X-Total-Count', count['count(*)'])
 		return response.json(incidents)

@@ -10,8 +10,10 @@ import styles from './styles.js'
 export default function Detail(){
   const navigation = useNavigation()
   const msg = 'Olá APD, estou entrando em contato...'
-  let number = ''
-  const incident = useRoute().params;
+  let number = '557988383098'
+  const incident = useRoute().params.incident;
+
+  console.log(incident);
 
   function navigateBack(){
     navigation.goBack()
@@ -40,14 +42,11 @@ export default function Detail(){
       </View>
 
       <View style={styles.incident}>
-        <Text style={[styles.incidentProperty, {marginTop:0}]}>ONG</Text>
-            <Text style={styles.incidentProperty}>ONG </Text>
-            <Text style={styles.incidentProperty}>{incident.name}</Text>
+            <Text style={styles.incidentProperty}>ONG:{incident.name}</Text>
 
-            <Text style={styles.incidentProperty}>CASO:</Text>
-            <Text style={styles.incidentProperty}>{incident.title}</Text>
+            <Text style={styles.incidentProperty}>CASO:{incident.title}</Text>
 
-            <Text style={styles.incidentProperty}>VALOR:</Text>
+            <Text style={styles.incidentProperty}>VALOR:{incident.value}</Text>
             
       </View>
       <View style={styles.contactBox}>

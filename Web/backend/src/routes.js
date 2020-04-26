@@ -6,13 +6,10 @@ const IncidentCrontroller = require('./controllers/IncidentController')
 const ProfileController = require('./controllers/ProfileController')
 const SessionController = require('./controllers/SessionController')
 
-// 'Celebrate' é sobre validação
-// 'Express' é sobre routing
-//
-
 const routes = express.Router()
 
 routes.get('/ongs', OngController.index)
+
 routes.post('/ongs', celebrate({
 	[Segments.BODY]: Joi.object().keys({
 		name: Joi.string().required(),
@@ -28,7 +25,9 @@ routes.get('/incidents',celebrate({
 		page: Joi.number(),
 	})
 }),IncidentCrontroller.index)
+
 routes.post('/incidents', IncidentCrontroller.create)
+
 routes.delete('/incidents/:id', celebrate({
 	[Segments.PARAMS]: Joi.object().keys({
 			id: Joi.number().required()
